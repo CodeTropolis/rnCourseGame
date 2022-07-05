@@ -3,7 +3,7 @@ import React from 'react'
 import PrimaryButton from '../components/PrimaryButton'
 import { useState } from 'react'
 
-const StartGame = () => {
+const StartGame = ({onPickNumber}) => {
   const [enteredNumber, setEnteredNumber] = useState('')
   // We get the param from React Native
   function numberInputHandler(inputText) {
@@ -15,7 +15,7 @@ const StartGame = () => {
       Alert.alert('Invalid Entry', 'Number has to be between 1 and 99.', [{text: 'Okay', style: 'destructive', onPress: resetInputHandler}]);
       return;
     }
-    console.log('Confirmed Number: ' + chosenNumber);
+    onPickNumber(chosenNumber);
   }
   function resetInputHandler() {
     setEnteredNumber('');

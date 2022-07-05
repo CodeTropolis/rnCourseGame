@@ -5,7 +5,6 @@ import React from 'react'
 // Otherwise, use props as arg and in component use props.children.
 // onPress is what we are calling when the button is pressed - can be named anything.
 const PrimaryButton = ({children, myPressHandler}) => {
-  const foo = () => console.log('foo');
   return (
     <View style={styles.buttonOuterContainer}>
       <Pressable 
