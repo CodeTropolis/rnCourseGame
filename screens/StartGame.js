@@ -1,12 +1,34 @@
-import { View, Text, TextInput, StyleSheet } from 'react-native'
+import { View, Text, TextInput, StyleSheet, Alert } from 'react-native'
 import React from 'react'
 import PrimaryButton from '../components/PrimaryButton'
-
+import { useState } from 'react'
 
 const StartGame = () => {
+  const [enteredNumber, setEnteredNumber] = useState('')
+  // We get the param from React Native
+  function numberInputHandler(inputText) {
+    setEnteredNumber(inputText);
+  }
+  function confirmInputHandler() {
+    const chosenNumber = parseInt(enteredNumber);
+    if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) {
+      Alert.alert('Invalid Entry', 'Number has to be between 1 and 99.', [{text: 'Okay', style: 'destructive', onPress: resetInputHandler}]);
+      return;
+    }
+    console.log('Confirmed Number: ' + chosenNumber);
+  }
+  function resetInputHandler() {
+    setEnteredNumber('');
+  }
   return (
     <View style={styles.inputContainer}>
-      <TextInput style={styles.numberInput} maxLength={2} keyboardType='number-pad'/>
+      <TextInput 
+        style={styles.numberInput} 
+        maxLength={2} 
+        keyboardType='number-pad'
+        value={enteredNumber}
+        onChangeText={numberInputHandler}
+        />
       <View style={styles.buttonsContainer}>
       {/* Each button has own view with its own flexbox container (flexbox container is default for the View tag) */}
       {/* The idea here is that because each View will have the default flexbox container (flex direction: column as default), 
@@ -16,7 +38,7 @@ const StartGame = () => {
           <PrimaryButton>Reset</PrimaryButton> 
         </View>
         <View style={styles.buttonContainer}>
-          <PrimaryButton>Confirm</PrimaryButton> 
+          <PrimaryButton myPressHandler={confirmInputHandler}>Confirm</PrimaryButton> 
         </View>
       </View>
     </View>

@@ -3,7 +3,8 @@ import React from 'react'
 
 // {children} as arg = props destructure
 // Otherwise, use props as arg and in component use props.children.
-const PrimaryButton = ({children}) => {
+// onPress is what we are calling when the button is pressed - can be named anything.
+const PrimaryButton = ({children, myPressHandler}) => {
   const foo = () => console.log('foo');
   return (
     <View style={styles.buttonOuterContainer}>
@@ -11,7 +12,8 @@ const PrimaryButton = ({children}) => {
         android_ripple={{color:'#640223'}}
         // pressed comes from Pressable 
         style={({pressed}) => pressed ? [styles.buttonInnerContainer, styles.pressed] : styles.buttonInnerContainer}
-        onPress={foo} 
+        // The onPress on the left is from the Pressable component.
+        onPress={myPressHandler} 
         > 
         <Text style={styles.buttonText}>{children}</Text>
       </Pressable>
@@ -35,7 +37,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: '#fff',
-    textAlign: 'center',
+    textAlign: 'center', 
   },
   pressed: {
     opacity: 0.5,
